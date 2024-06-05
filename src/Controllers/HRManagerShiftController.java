@@ -84,6 +84,7 @@ public class HRManagerShiftController {
             Employee emp_to_workon=null;
             if(!(empMAP.containsKey(e))){
                 employeeListNOTasing.add( e+"- Employee NUMBER is not in this branch or DATA");
+                continue;
             }
             emp_to_workon=empMAP.get(e);
             if(!emp_to_workon.employeeCanbe(job)){
@@ -227,7 +228,7 @@ public class HRManagerShiftController {
 
     //---------------------------Functions for changing default values for a specific shift-----------------------------------------//
     public String ChangingdefaultvaluesinSpecificShiftNUMworkertoJob(String date,String shiftype,String jobname,int numworker,Week week)throws IllegalArgumentException{
-        if(jobname==null||shiftype==null||date==null||numworker>=0){
+        if(jobname==null||shiftype==null||date==null||numworker<0){
             throw new IllegalArgumentException("Argumets can not be NULL");
         }
         //-------date------//

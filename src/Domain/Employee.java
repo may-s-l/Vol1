@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Employee {
-    private static int EmployeeNUM=0;
+    private static int EmployeeNUM=1;
     private String Name;
     private String ID;
     private String Bank_account;

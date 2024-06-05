@@ -155,6 +155,9 @@ public abstract class Shift {
     }
 
     public Set<Job> getAllJobInShift(){
+        if(this.NumberofWorkersPerJob==null){
+            return NumberofWorkersPerPositionDifult.getKeys();
+        }
         return this.NumberofWorkersPerJob.getKeys();
     }
 
