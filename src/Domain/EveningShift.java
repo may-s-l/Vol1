@@ -1,5 +1,7 @@
 package Domain;
 
+import Domain.Enums.ShiftType;
+
 import java.sql.Time;
 import java.time.LocalDate;
 
@@ -9,11 +11,11 @@ public class EveningShift extends Shift {
     private static Time De_time=new Time(22,0,00);
 
     public EveningShift(LocalDate date){
-        super(Ds_time,De_time,date);
+        super(Ds_time,De_time,date, ShiftType.EVENING);
     };
 
     public EveningShift(Time start_time,Time end_time,LocalDate date){
-        super(start_time,end_time,date);
+        super(start_time,end_time,date,ShiftType.EVENING);
     }
 
     public static Time getDs_time() {

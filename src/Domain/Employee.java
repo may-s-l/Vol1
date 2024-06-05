@@ -124,7 +124,6 @@ public class Employee {
         return Jobs.add(job);
     }
 
-
     public boolean employeeCanbe(Job job){
         return this.Jobs.contains(job);
     }
@@ -143,6 +142,9 @@ public class Employee {
 
     public Constraint getConstraintByDate(LocalDate date) {
         if (this.constraintMyMap==null){
+            return null;
+        }
+        if(!constraintMyMap.containsKey(date)){
             return null;
         }
         return constraintMyMap.get(date);

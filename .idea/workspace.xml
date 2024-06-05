@@ -4,19 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="557de4e3-7f49-46d4-9532-43159582667a" name="Changes" comment="Vol1-newStrat">
-      <change afterPath="$PROJECT_DIR$/src/Controllers/MasterController.java" afterDir="false" />
+    <list default="true" id="557de4e3-7f49-46d4-9532-43159582667a" name="Changes" comment="Vol1-step2modifing think as the diagram">
+      <change afterPath="$PROJECT_DIR$/src/Domain/MyTripel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/HRManagerEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/HRManagerEmployeeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/HRManagerShiftController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/HRManagerShiftController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Data/Temp_DataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Data/Temp_DataBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Constraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Day.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Day.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Domain/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Enums/ShiftType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Enums/ShiftType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/ManagerEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/ManagerEmployee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/EveningShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/EveningShift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/MorningShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/MorningShift.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Domain/Shift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Shift.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/TermsOfEmployment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/TermsOfEmployment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Domain/Week.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Week.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
@@ -83,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1717396380221</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Vol1-step2modifing think as the diagram">
+      <created>1717563307702</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717563307702</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -99,6 +102,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Vol1-newStrat" />
-    <option name="LAST_COMMIT_MESSAGE" value="Vol1-newStrat" />
+    <MESSAGE value="Vol1-step2modifing think as the diagram" />
+    <option name="LAST_COMMIT_MESSAGE" value="Vol1-step2modifing think as the diagram" />
   </component>
 </project>

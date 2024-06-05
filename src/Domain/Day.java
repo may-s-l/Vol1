@@ -41,6 +41,18 @@ public class Day {
         }
     }
 
+//    public boolean isEmployeealreadyworkingonthisday(Employee e)throws IllegalArgumentException{
+//        if(e==null){
+//            throw new IllegalArgumentException("Employee can not be NULL");
+//        }
+//        if(isdayofrest){
+//            throw new IllegalArgumentException("This day IS Day off");
+//        }
+//        Employee emp=this.shiftsInDay[0].getEmployee_in_shift().containsKey
+//
+//
+//    }
+
     public LocalDate getDate() {
         return Date;
     }
