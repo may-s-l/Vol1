@@ -11,8 +11,8 @@ public class ManagerEmployee extends Employee {
         super(name, ID, bank_account, branch, vacationday, start_date, salary, jod_type, Salary_type,(Job) job);
     }
 
-    public ManagerEmployee(String name, String ID, String bank_account, Branch branch, ManagementJob job) {
-        super(name, ID, bank_account, branch,(Job) job);
-    }
+//    public ManagerEmployee(String name, String ID, String bank_account, Branch branch, ManagementJob job) {
+//        super(name, ID, bank_account, branch,(Job) job);
+//    }
 
 }

@@ -32,8 +32,6 @@ public class Constraint {
     }
     @Override
     public String toString() {
-        return "constrain for Employee ID:" + emp.getID() +
-                "at date: '" + date + "in " + shiftType +
-                "shift";
+        return "can't work on "+this.date.getDayOfWeek()+" "+this.shiftType.toString();
     }
 }

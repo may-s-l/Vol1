@@ -9,7 +9,7 @@ public class Branch {
     private String address;
     private ManagerEmployee managerEmployee;
     //האם צריך לתמוך בסניף שנסגר ואיך ןמה לעשות עם עובדי הבניף האם למנהל כוח אדם בסניף אחר יש הרשאה לסניפים אחרים אם לא האם זה אומר שעובד לא יעבור בן סניפים
-    private List<Employee> EmployeesInBranch;
+    private MyMap<String,Employee> EmployeesInBranch;
     private int branchNum;
 
 
@@ -19,8 +19,7 @@ public class Branch {
         this.address = address;
         this.managerEmployee = managerEmployee;
         this.branchNum=numBranch+1;
-        this.EmployeesInBranch=new ArrayList<Employee>();
-        this.EmployeesInBranch.add(managerEmployee);
+        this.EmployeesInBranch=new MyMap<String,Employee>();
         numBranch=+1;
     }
 
@@ -29,7 +28,7 @@ public class Branch {
         this.address = address;
         this.managerEmployee = null;
         this.branchNum=numBranch+1;
-        this.EmployeesInBranch=new ArrayList<Employee>();
+        this.EmployeesInBranch=new MyMap<String,Employee>();
         numBranch=+1;
     }
 
@@ -53,11 +52,11 @@ public class Branch {
         return managerEmployee;
     }
 
-    public List<Employee> getEmployeesInBranch() {
+    public MyMap<String,Employee> getEmployeesInBranch() {
         return EmployeesInBranch;
     }
 
-    public void setEmployeesInBranch(List<Employee> employeesInBranch) {
+    public void setEmployeesInBranch(MyMap<String,Employee> employeesInBranch) {
         EmployeesInBranch = employeesInBranch;
     }
 
@@ -69,7 +68,17 @@ public class Branch {
         return branchNum;
     }
 
+    public void addEmployeeToBranch(Employee employee){
+        this.EmployeesInBranch.put(employee.getID(),employee);
+    }
 
+    public Employee getEmployee(String ID){
+        return this.EmployeesInBranch.get(ID);
+    }
+
+    public void removEmployeeFromBranch(Employee employee){
+        this.EmployeesInBranch.remove(employee.getID());
+    }
     @Override
     public String toString() {
         return "Branch name: " + name + '\n' +

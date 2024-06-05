@@ -3,7 +3,8 @@ package Domain;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Week {
     private int weekNUM;
@@ -49,5 +50,61 @@ public class Week {
 
         return sb.toString();
     }
+
+
+    public String weekInTableToShow() {
+        StringBuilder sb = new StringBuilder();
+        int jobWidth = 20;
+        int shiftWidth = 15;
+
+        sb.append("Week number: ").append(weekNUM).append("\n");
+        sb.append("Start date: ").append(start_date).append("\n");
+        sb.append("End date: ").append(end_date).append("\n\n");
+
+        sb.append(String.format("| %-" + jobWidth + "s |", "Job"));
+        for (LocalDate date : DayInWEEK.getKeys()) {
+            Day day = DayInWEEK.get(date);
+            sb.append(String.format(" %-" + shiftWidth + "s | %-" + shiftWidth + "s |", day.getDayOfWeek() + " " + day.getDate(), ""));
+        }
+        sb.append("\n");
+
+
+        sb.append(String.format("| %-" + jobWidth + "s |", ""));
+        for (int i = 0; i < DayInWEEK.size(); i++) {
+            sb.append(String.format(" %-" + shiftWidth + "s | %-" + shiftWidth + "s |", "Morning", "Evening"));
+        }
+        sb.append("\n");
+
+        sb.append(String.join("", Collections.nCopies(jobWidth + shiftWidth * 2 * DayInWEEK.size() + DayInWEEK.size() + 1, "-"))).append("\n");
+
+        Set<Job> jobsToFill = Shift.getNumberofWorkersPerPosition().getKeys(); // Assuming all days have the same jobs to fill
+
+        for (Job job : jobsToFill) {
+            sb.append(String.format("| %-" + jobWidth + "s |", job.getJobName()));
+            for (LocalDate date : DayInWEEK.getKeys()) {
+                Day day = DayInWEEK.get(date);
+
+                String morningEmployee = "";
+                String eveningEmployee = "";
+
+                if (!day.isIsdayofrest()) {
+                    List<Employee> morningShiftEmployees = day.getShiftsInDay()[0].getEmployee_in_shift().get(job);
+                    List<Employee> eveningShiftEmployees = day.getShiftsInDay()[1].getEmployee_in_shift().get(job);
+
+                    morningEmployee = morningShiftEmployees.stream().map(Employee::getName).collect(Collectors.joining(", "));
+                    eveningEmployee = eveningShiftEmployees.stream().map(Employee::getName).collect(Collectors.joining(", "));
+                } else {
+                    morningEmployee = "Day off";
+                    eveningEmployee = "Day off";
+                }
+
+                sb.append(String.format(" %-" + shiftWidth + "s | %-" + shiftWidth + "s |", morningEmployee, eveningEmployee));
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
 }
 

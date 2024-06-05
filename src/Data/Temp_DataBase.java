@@ -54,5 +54,43 @@ public class Temp_DataBase {
     public List<Constraint> getEmployeeConstraint(Employee employee){
         return this.Constraint_temp_database.get(employee);
     }
+///////////////////////////////////////////////
+
+    public Job getJobByName(String Jobname){
+        if (Jobname==null){
+            return null;
+        }
+        Job job;
+        for(Job j : getEmployeejobs_temp_database()){
+            if(j.getJobName()==Jobname){
+                job=j;
+                return job;
+            }
+        }
+        return null;
+    }
+    public Branch getBranchByNUM(int branchnumber){
+        if (branchnumber<=0){
+            return null;
+        }
+        Branch branch;
+        for(Branch b : getBranch_temp_database()){
+            if(b.getBranchNum()==branchnumber){
+                branch=b;
+                return branch;
+            }
+        }
+        return null;
+    }
+    public List<Branch> getAllBranch() {
+        return getBranch_temp_database();
+    }
+    public MyMap<String, Employee> getAllEmployees() {
+
+        return getEmployees_temp_database();
+    }
+    public List<Job> getAlljobs() {
+        return getEmployeejobs_temp_database();
+    }
 }
 

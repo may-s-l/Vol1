@@ -8,11 +8,17 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
         //2007-12-03
-        HRManagerEmployeeController EC =new HRManagerEmployeeController();
-        HRManagerShiftController SC=new HRManagerShiftController(EC.getTemp_Database());
+        MasterController MC =new MasterController();
+        HRManagerEmployeeController EC=MC.getHR_Employee();
+        EC.createBranch("M SUPERLEE","HJUHU87");
         EC.createJob("SHIFT MENGER");
-        Week W = SC.createWeekforassignment("2024-06-02");
-        System.out.println(W);
+        EC.createJob("driver");
+        EC.createEmployee("GHG","123456","12345678","M SUPERLEE",14,"2024-05-06",123,"Full","hOURLY","driver");
+
+        HRManagerShiftController SC= MC.getHR_Shift();
+        String SCHEDULE= SC.MakeScheduleforNextWeek(1,"2024-06-09");
+        System.out.println(SCHEDULE);
+        //System.out.println(W.weekInTableToShow());
 
 
 

@@ -23,16 +23,6 @@ public class TermsOfEmployment {
         this.st = SalaryType.valueOf(st);
     }
 
-    //לראות איך מכניסים את זה לקובץ קונפיגורציה
-    public TermsOfEmployment() {
-        this.vacationDay = 14;
-        Start_date = LocalDate.now();
-        End_date = null;
-        Salary = 30;
-        this.jt = JobType.PART;
-        this.st = SalaryType.HOURLY;
-    }
-
     public double getVacationDay() {
         return vacationDay;
     }
