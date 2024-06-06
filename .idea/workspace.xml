@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="557de4e3-7f49-46d4-9532-43159582667a" name="Changes" comment="Vol1-ShiftCONTROLLER main work">
+    <list default="true" id="557de4e3-7f49-46d4-9532-43159582667a" name="Changes" comment="Vol1-A few fixes after a little testing need to do more testing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/HRManagerShiftController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/HRManagerShiftController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Employee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Domain/Shift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Shift.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Domain/Week.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Week.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +86,14 @@
       <option name="project" value="LOCAL" />
       <updated>1717616465572</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Vol1-A few fixes after a little testing need to do more testing">
+      <created>1717619058505</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1717619058505</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -107,6 +111,7 @@
     <MESSAGE value="Vol1-newStrat" />
     <MESSAGE value="Vol1-step2modifing think as the diagram" />
     <MESSAGE value="Vol1-ShiftCONTROLLER main work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Vol1-ShiftCONTROLLER main work" />
+    <MESSAGE value="Vol1-A few fixes after a little testing need to do more testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Vol1-A few fixes after a little testing need to do more testing" />
   </component>
 </project>

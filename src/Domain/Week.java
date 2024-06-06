@@ -70,7 +70,7 @@ public class Week {
     public String weekInTableToShow() {
         StringBuilder sb = new StringBuilder();
         int jobWidth = 20;
-        int shiftWidth = 15;
+        int shiftWidth = 40; // Increase width to accommodate shift details
         int daydateWidth = 33;
 
         sb.append("Week number: ").append(weekNUM).append("\n");
@@ -85,10 +85,26 @@ public class Week {
         }
         sb.append("\n");
 
-        // Header Row: Morning | Evening | Morning | Evening | ...
+        // Header Row: Morning (Start-End) | Evening (Start-End) | ...
         sb.append(String.format("| %-" + jobWidth + "s |", ""));
-        for (int i = 0; i < DayInWEEK.size(); i++) {
-            sb.append(String.format(" %-" + shiftWidth + "s | %-" + shiftWidth + "s |", "Morning", "Evening"));
+        for (LocalDate date : DayInWEEK.getKeys()) {
+            Day day = DayInWEEK.get(date);
+            if (!day.isIsdayofrest()) {
+                Shift morningShift = day.getShiftsInDay()[0];
+                Shift eveningShift = day.getShiftsInDay()[1];
+
+                String morningShiftHeader = String.format("Morning (%s - %s)",
+                        morningShift.getStart_time().toString(),
+                        morningShift.getEnd_time().toString());
+
+                String eveningShiftHeader = String.format("Evening (%s - %s)",
+                        eveningShift.getStart_time().toString(),
+                        eveningShift.getEnd_time().toString());
+
+                sb.append(String.format(" %-" + shiftWidth + "s | %-" + shiftWidth + "s |", morningShiftHeader, eveningShiftHeader));
+            } else {
+                sb.append(String.format(" %-" + shiftWidth + "s | %-" + shiftWidth + "s |", "Day off", "Day off"));
+            }
         }
         sb.append("\n");
 
@@ -104,23 +120,39 @@ public class Week {
 
                 String morningEmployee = "";
                 String eveningEmployee = "";
+                String morningRequired = "";
+                String eveningRequired = "";
 
                 if (!day.isIsdayofrest()) {
-                    List<Employee> morningShiftEmployees = day.getShiftsInDay()[0].getEmployeeinshiftSet().stream()
+                    Shift morningShift = day.getShiftsInDay()[0];
+                    Shift eveningShift = day.getShiftsInDay()[1];
+
+                    List<Employee> morningShiftEmployees = morningShift.getEmployeeinshiftSet().stream()
                             .filter(emp -> emp.getJobs().contains(job))
                             .collect(Collectors.toList());
-                    List<Employee> eveningShiftEmployees = day.getShiftsInDay()[1].getEmployeeinshiftSet().stream()
+                    List<Employee> eveningShiftEmployees = eveningShift.getEmployeeinshiftSet().stream()
                             .filter(emp -> emp.getJobs().contains(job))
                             .collect(Collectors.toList());
 
-                    morningEmployee = morningShiftEmployees.stream().map(Employee::getName).collect(Collectors.joining(", "));
-                    eveningEmployee = eveningShiftEmployees.stream().map(Employee::getName).collect(Collectors.joining(", "));
+                    morningRequired = String.valueOf(morningShift.getNumberofWorkersPerJob(job));
+                    eveningRequired = String.valueOf(eveningShift.getNumberofWorkersPerJob(job));
+
+                    morningEmployee = morningShiftEmployees.stream()
+                            .map(emp -> emp.getName() +"-"+ emp.getEmployeeNum())
+                            .collect(Collectors.joining(", "));
+                    eveningEmployee = eveningShiftEmployees.stream()
+                            .map(emp -> emp.getName() + "-" + emp.getEmployeeNum())
+                            .collect(Collectors.joining(", "));
+
+
                 } else {
                     morningEmployee = "Day off";
                     eveningEmployee = "Day off";
+                    morningRequired = "0";
+                    eveningRequired = "0";
                 }
 
-                sb.append(String.format(" %-" + shiftWidth + "s | %-" + shiftWidth + "s |", morningEmployee, eveningEmployee));
+                sb.append(String.format(" %-" + shiftWidth + "s | %-" + shiftWidth + "s |","(Req:" + morningRequired + ")"+ morningEmployee , "(Req:" + eveningRequired + ")"+eveningEmployee ));
             }
             sb.append("\n");
 
@@ -130,6 +162,5 @@ public class Week {
 
         return sb.toString();
     }
-
 }
 
