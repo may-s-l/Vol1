@@ -1,10 +1,18 @@
 package Controllers;
 import Domain.*;
 import Domain.Enums.ShiftType;
+
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static Domain.MorningShift.setDe_time;
+import static Domain.MorningShift.setDs_time;
+import static Domain.Shift.ChangingtheDifultNumberOfemployeesPerJob;
 import static java.time.DayOfWeek.*;
 
 
@@ -220,10 +228,36 @@ public class HRManagerShiftController {
     public boolean isItTheTIMEtoAssignmenttToShifts(){
         LocalDate today= LocalDate.now();
         DayOfWeek week_day=today.getDayOfWeek();
-        if(week_day==THURSDAY|week_day==FRIDAY){
+        if(week_day==THURSDAY||week_day==FRIDAY){
             return true;
         }
         return false;
+    }
+    private String isWeekcanbeclose(Week week){
+         LocalDate strat_day=week.getStart_date();
+        String S=null;
+         for (int i=0 ;i<7;i++){
+             Day day = week.getDayOfWeek(strat_day.plusDays(i));
+             Shift[] shifts = day.getShiftsInDay();
+             for (int j=0;j<2;j++){
+                 Shift shift=shifts[i];
+                 for(Job job:shift.getAllJobInShift()){
+                     if(shift.isJobInShiftisFull(job)){
+                         continue;
+                     }
+                     else {
+                         S += "In " + day.getDate() + " " + job + "is not full";
+                     }
+
+                 }
+             }
+         }
+         if(S==null){
+             return "All positions have been filled";
+         }
+         return S;
+
+
     }
 
     //---------------------------Functions for changing default values for a specific shift-----------------------------------------//
@@ -246,7 +280,102 @@ public class HRManagerShiftController {
         if(shiftype.equals("MORNING")){
             i=0;
         }
+        if(week.getDayOfWeek(dateToCheck).isIsdayofrest()){
+            throw new IllegalArgumentException("Day must be work day");
+        }
         Shift shift=week.getDayOfWeek(dateToCheck).getShiftsInDay()[i];
+        Job job = null;
+        for (Job j : this.Employeejobs_temp_database) {
+            if (Objects.equals(j.getJobName(), jobname)) {
+                job = j;
+                break;
+            }
+        }
+        if (job == null) {
+            throw new IllegalArgumentException("Job does not exist");
+        }
+        if(numworker==0){
+            if (Objects.equals(job.getJobName(), "SHIFT MANAGER")){
+                throw new IllegalArgumentException("Must be minimum 1 SHIFT MANAGER");
+            }
+        }
+        shift.ChangingTheNumberOfemployeesPerJobInShift(job,numworker);
+        return "The number of worker for "+jobname+" is change to "+numworker;
+
+    }
+
+    public String ChangingdefaultvaluesinSpecificShiftWORKHoursStart_End(String date,String shiftype,String start_time,String end_time,Week week){
+        if(start_time==null||end_time==null||shiftype==null||date==null||week==null){
+            throw new IllegalArgumentException("Argumets can not be NULL");
+        }
+        //-------date------//
+        LocalDate dateToCheck= LocalDate.parse(date);
+        if(!((dateToCheck.isEqual(week.getStart_date()) || dateToCheck.isAfter(week.getStart_date())) && (dateToCheck.isEqual(week.getEnd_date()) || dateToCheck.isBefore(week.getEnd_date())))){
+            throw new IllegalArgumentException("Date must be in week of work");
+        }
+        //-------EnumShiftType-------//
+        shiftype=shiftype.toUpperCase();
+        if (!shiftype.equals("MORNING") && !shiftype.equals("EVENING")) {
+            throw new IllegalArgumentException("Job type must be morning or evening");
+        }
+        //-------Time-------//
+        LocalTime start = LocalTime.parse(start_time);
+        LocalTime end = LocalTime.parse(end_time);
+        if(start.isAfter(end)){
+            throw new IllegalArgumentException("Ending shift time must be after Start of shift");
+        }
+        int i=1;
+        if(shiftype.equals("MORNING")){
+            i=0;
+        }
+        if(week.getDayOfWeek(dateToCheck).isIsdayofrest()){
+            throw new IllegalArgumentException("Day must be work day");
+        }
+        Shift shift=week.getDayOfWeek(dateToCheck).getShiftsInDay()[i];
+        shift.setStart_time(start);
+        shift.setEnd_time(end);
+        return "Shift Hours is change to "+start+"-"+end;
+    }
+
+    public String ChangingdefaultvaluesinSpecificDayDAY_OFF(String date,Week week,String bool){
+        if(date==null||week==null||bool==null){
+            throw new IllegalArgumentException("Argumets can not be NULL");
+        }
+        //-------date------//
+        LocalDate dateToCheck= LocalDate.parse(date);
+        if(!((dateToCheck.isEqual(week.getStart_date()) || dateToCheck.isAfter(week.getStart_date())) && (dateToCheck.isEqual(week.getEnd_date()) || dateToCheck.isBefore(week.getEnd_date())))){
+            throw new IllegalArgumentException("Date must be in week of work");
+        }
+        Day day=week.getDayOfWeek(dateToCheck);
+        boolean b=true;
+        if(!(bool.toUpperCase().equals("F")||bool.toUpperCase().equals("T"))){
+            throw new IllegalArgumentException("is a day of must be F/T");
+        }
+        if(bool.toUpperCase().equals("F")){
+            b=false;
+        }
+        if(day.isIsdayofrest()!=b){
+            day.setIsdayofrest(b);
+            if(b) {
+                return "Day " + dateToCheck + " change to day off";
+            }
+            return "Day " + dateToCheck + " change to work day";
+        }
+        if(b) {
+            throw new IllegalArgumentException("Day " + dateToCheck + " IS ALREADY day off");
+        }
+        throw new IllegalArgumentException("Day " + dateToCheck +" IS ALREADY work day");
+
+    }
+
+
+    //---------------------------Changing default values for the placement system---------------------------------------------------//
+
+    public String ChangingdefaultvaluesforALLShiftNUMworkertoJob(String jobname,int numworker){
+        if(jobname==null||numworker<0){
+            throw new IllegalArgumentException("Argumets can not be NULL");
+        }
+
         Job job = null;
         for (Job j : this.Employeejobs_temp_database) {
             if (j.getJobName() == jobname) {
@@ -257,10 +386,44 @@ public class HRManagerShiftController {
         if (job == null) {
             throw new IllegalArgumentException("Job does not exist");
         }
-        shift.ChangingTheNumberOfemployeesPerJobInShift(job,numworker);
+        if(numworker==0){
+            if (job.getJobName()=="SHIFT MANAGER"){
+                throw new IllegalArgumentException("Must be minimum 1 SHIFT MANAGER");
+            }
+        }
+        ChangingtheDifultNumberOfemployeesPerJob(job,numworker);
         return "The number of worker for "+jobname+" is change to "+numworker;
 
+
     }
+
+    public String ChangingdefaultvaluesforALLshiftWORKHoursStart_End(String shiftype,String start_time,String end_time){
+        if(start_time==null||end_time==null||shiftype==null){
+            throw new IllegalArgumentException("Argumets can not be NULL");
+        }
+        //-------EnumShiftType-------//
+        shiftype=shiftype.toUpperCase();
+        if (!shiftype.equals("MORNING") && !shiftype.equals("EVENING")) {
+            throw new IllegalArgumentException("Job type must be morning or evening");
+        }
+        //-------Time-------//
+        LocalTime start = LocalTime.parse(start_time);
+        LocalTime end = LocalTime.parse(end_time);
+        if(start.isAfter(end)){
+            throw new IllegalArgumentException("Ending shift time must be after Start of shift");
+        }
+        if(shiftype.equals("MORNING")){
+            MorningShift.setDs_time(start);
+            MorningShift.setDe_time(end);
+        }
+        if(shiftype.equals("EVENING")){
+            EveningShift.setDs_time(start);
+            EveningShift.setDe_time(end);
+        }
+
+        return shiftype+" Shift Hours is change to "+start+"-"+end;
+    }
+
 
 
 }

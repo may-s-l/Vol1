@@ -12,11 +12,10 @@ public class Main {
         MasterController MC =new MasterController();
         HRManagerEmployeeController EC=MC.getHR_Employee();
         EC.createBranch("M SUPERLEE","HJUHU87");
-        EC.createJob("SHIFT MENGER");
+        EC.createJob("SHIFT MANAGER");/////להוסיף לDATA CGKH, VNGRF,
         EC.createJob("driver");
         EC.createEmployee("GHG","123456","12345678","M SUPERLEE",14,"2024-05-06",123,"Full","hOURLY","driver");
         EC.createEmployee("may","123457","12345678","M SUPERLEE",14,"2024-05-06",123,"Full","hOURLY","driver");
-
         HRManagerShiftController SC= MC.getHR_Shift();
         MyTripel<Week,List<List<Object>>,MyMap<Integer, Employee>> SCHEDULE= SC.MakeScheduleforNextWeek(1,"2024-06-09");
         //System.out.println(W.weekInTableToShow());
@@ -29,6 +28,16 @@ public class Main {
 //        System.out.println(SCHEDULE.getFirst().weekInTableToShow());
         System.out.println(SC.addEmployeetoshift(SC.checkaddEmployeesToShiftsByDateANDJob(em,"driver","morning","2024-06-14",SCHEDULE.getFirst()),SCHEDULE));
         System.out.println(SCHEDULE.getFirst().weekInTableToShow());
+//        System.out.println(SC.ChangingdefaultvaluesinSpecificDayDAY_OFF("2024-06-14",SCHEDULE.getFirst(),"T"));
+//        System.out.println(SCHEDULE.getFirst().weekInTableToShow());
+
+        System.out.println(SC.ChangingdefaultvaluesinSpecificShiftWORKHoursStart_End("2024-06-14","evening","16:00:00","22:30:00",SCHEDULE.getFirst()));
+        System.out.println(SCHEDULE.getFirst().weekInTableToShow());
+
+        System.out.println(SC.ChangingdefaultvaluesforALLShiftNUMworkertoJob("SHIFT MENGER",6));
+
+        System.out.println(SCHEDULE.getFirst().weekInTableToShow());
+
 
 
 
